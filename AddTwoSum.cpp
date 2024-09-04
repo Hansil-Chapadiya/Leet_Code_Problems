@@ -22,14 +22,14 @@ public:
     }
 };
 
-class Solution
+class AddTwoSum
 {
     ListNode* temp_list;
     ListNode* current;
     int carry;
 
 public:
-    Solution()
+    AddTwoSum()
     {
         temp_list = new ListNode(); // Initialize the dummy node
         current = temp_list;
@@ -60,7 +60,7 @@ public:
         return temp_list->next;
     }
 
-    ~Solution()
+    ~AddTwoSum()
     {
         // Destructor to clean up the dummy node if needed
         delete temp_list;
@@ -92,7 +92,7 @@ int main()
     ListNode *l1 = reverseNum(num1);
     ListNode *l2 = reverseNum(num2);
 
-    Solution ad;
+    AddTwoSum ad;
     ListNode *l3 = ad.addTwoNumbers(l1, l2);
 
     ListNode result;
