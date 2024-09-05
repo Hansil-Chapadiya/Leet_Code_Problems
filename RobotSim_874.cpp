@@ -13,7 +13,7 @@
 //     WEST
 // };
 
-// class Solution
+// class RobotSim_874
 // {
 // private:
 //     bool isObstacle(const tuple<int, int> &position, const vector<vector<int>> &obstacles)
@@ -29,12 +29,12 @@
 //     }
 
 // public:
-//     Solution() {}
-//     ~Solution() {}
+//     RobotSim_874() {}
+//     ~RobotSim_874() {}
 //     int robotSim(vector<int> &commands, vector<vector<int>> &obstacles);
 // };
 
-// int Solution::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
+// int RobotSim_874::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
 // {
 //     tuple<int, int> start_pos = make_tuple(0, 0);
 //     Direction current_direction = NORTH;
@@ -94,7 +94,7 @@
 // {
 //     vector<int> commands = {1,-1,1,-1,1,-1,6};       // Example commands
 //     vector<vector<int>> obstacles = {{0, 0}}; // Example obstacles
-//     Solution robosim;
+//     RobotSim_874 robosim;
 //     int result = robosim.robotSim(commands, obstacles);
 //     cout << "Max distance squared from origin: " << result << endl;
 //     return 0;
@@ -115,7 +115,7 @@
 //     WEST
 // };
 
-// class Solution
+// class RobotSim_874
 // {
 // private:
 //     bool isObstacle(const tuple<int, int> &position, const vector<vector<int>> &obstacles)
@@ -132,12 +132,12 @@
 //     }
 
 // public:
-//     Solution() {}
-//     ~Solution() {}
+//     RobotSim_874() {}
+//     ~RobotSim_874() {}
 //     int robotSim(vector<int> &commands, vector<vector<int>> &obstacles);
 // };
 
-// int Solution::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
+// int RobotSim_874::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
 // {
 //     tuple<int, int> start_pos = make_tuple(0, 0);
 //     Direction current_direction = NORTH;
@@ -197,7 +197,7 @@
 // {
 //     vector<int> commands = {1, -1, 1, -1, 1, -1, 6}; // Example commands
 //     vector<vector<int>> obstacles = {{0, 0}};        // Example obstacles
-//     Solution robosim;
+//     RobotSim_874 robosim;
 //     int result = robosim.robotSim(commands, obstacles);
 //     cout << "Max distance squared from origin: " << result << endl;
 //     return 0;
@@ -219,7 +219,7 @@
 //     WEST
 // };
 
-// class Solution
+// class RobotSim_874
 // {
 // private:
 //     using Position = tuple<int, int>;
@@ -230,12 +230,12 @@
 //     }
 
 // public:
-//     Solution() {}
-//     ~Solution() {}
+//     RobotSim_874() {}
+//     ~RobotSim_874() {}
 //     int robotSim(vector<int> &commands, vector<vector<int>> &obstacles);
 // };
 
-// int Solution::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
+// int RobotSim_874::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
 // {
 //     unordered_set<Position> obstacle_set;
 //     for (const auto &obs : obstacles)
@@ -302,7 +302,7 @@
 // {
 //     vector<int> commands = {1, -1, 1, -1, 1, -1, 6}; // Example commands
 //     vector<vector<int>> obstacles = {{0, 0}}; // Example obstacles
-//     Solution robosim;
+//     RobotSim_874 robosim;
 //     int result = robosim.robotSim(commands, obstacles);
 //     cout << "Max distance squared from origin: " << result << endl;
 //     return 0;
@@ -323,7 +323,7 @@ enum Direction
     WEST
 };
 
-class Solution
+class RobotSim_874
 {
 private:
     using Position = tuple<int, int>;
@@ -342,12 +342,12 @@ private:
     }
 
 public:
-    Solution() {}
-    ~Solution() {}
+    RobotSim_874() {}
+    ~RobotSim_874() {}
     int robotSim(vector<int> &commands, vector<vector<int>> &obstacles);
 };
 
-int Solution::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
+int RobotSim_874::robotSim(vector<int> &commands, vector<vector<int>> &obstacles)
 {
     // Convert vector of vectors to vector of tuples for obstacles
     vector<Position> obstacle_positions;
@@ -415,7 +415,7 @@ int main()
 {
     vector<int> commands = {1, -1, 1, -1, 1, -1, 6}; // Example commands
     vector<vector<int>> obstacles = {{0, 0}};        // Example obstacles
-    Solution robosim;
+    RobotSim_874 robosim;
     int result = robosim.robotSim(commands, obstacles);
     cout << "Max distance squared from origin: " << result << endl;
     return 0;
