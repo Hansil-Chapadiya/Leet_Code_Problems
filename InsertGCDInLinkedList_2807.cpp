@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 class ListNode
 {
 public:
@@ -9,65 +10,65 @@ public:
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
 class InsertGCDInLinkedList_2807
 {
 private:
     int getGCD(int n1, int n2)
     {
-        // cout << *this->num1 << " " << *this->num2 << endl;
-        // while ((*this->num2) > 0)
-        // {
-        //     int q = *this->num1 / *this->num2;
-        //     int r = *this->num1 - (q * (*this->num2));
-        //     *this->num1 = *this->num2;
-        //     *this->num2 = r;
-        // }
-        // return *this->num1;
-        if (n1 == 0)
+        if (n2 == 0)
         {
-            return n2;
+            return n1;
         }
-        else
-        {
-            int r = (n2) % (n1);
-            return getGCD(r, n1);
-        }
+        return getGCD(n2, n1 % n2);
     }
 
 public:
     ListNode *insertGreatestCommonDivisors(ListNode *head)
     {
-        ListNode *temp_list = head;
         ListNode *temp = head;
 
-        while (temp != nullptr)
+        while (temp != nullptr && temp->next != nullptr)
         {
-            if (temp->val && temp->next != nullptr && temp->next->val)
-            {
-                int gcd = getGCD(temp->val, temp->next->val);
-                ListNode *gcd_node = new ListNode(gcd);
-                gcd_node->next = temp_list->next;
-                temp_list->next = gcd_node;
-                temp_list = gcd_node->next;
-            }
+            int gcd = getGCD(temp->val, temp->next->val);
+
+            ListNode *gcd_node = new ListNode(gcd);
+            gcd_node->next = temp->next;
+            temp->next = gcd_node;
+
+            temp = gcd_node->next;
         }
 
-        return temp_list;
+        return head;
     }
 };
+
 int main()
 {
     InsertGCDInLinkedList_2807 in;
-    ListNode *head = new ListNode(10);
-    head->next = new ListNode(6);
-    head->next->next = new ListNode(10);
-    head->next->next->next = new ListNode(3);
 
+    // Creating the linked list: 10 -> 6 -> 10 -> 3
+    ListNode *head = new ListNode(7);
+    // head->next = new ListNode(6);
+    // head->next->next = new ListNode(10);
+    // head->next->next->next = new ListNode(3);
+
+    // Inserting GCD nodes
     ListNode *result = in.insertGreatestCommonDivisors(head);
+
+    // Printing the modified list
     while (result != nullptr)
     {
-        cout<<result->val;
+        cout << result->val << " -> ";
         result = result->next;
     }
+    cout << "nullptr" << endl;
 
+    return 0;
 }
+static const int hansil = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
