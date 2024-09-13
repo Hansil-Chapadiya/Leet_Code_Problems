@@ -100,3 +100,35 @@ int main()
     return 0;
 }
 
+/*
+
+Why Use L - 1?
+Now, to get the XOR of any subarray from L to R using the prefix XOR array, here’s the trick:
+
+Example:
+Let's say we want to find the XOR of the subarray from index L = 1 to R = 3 in arr = [4, 8, 2, 10]. This means we want to find the XOR of arr[1] ^ arr[2] ^ arr[3] (which is 8 ^ 2 ^ 10).
+
+Step-by-Step:
+
+XOR of everything up to R: From the prefix XOR array, we know:
+
+prefix
+[
+3
+]
+=
+4
+prefix[3]=4
+This is the XOR of everything from index 0 to 3 (i.e., 4 ^ 8 ^ 2 ^ 10).
+
+XOR of everything before L: Now, we want to "remove" the part of the array before L. We do this by using:
+
+prefix
+[
+0
+]
+=
+4
+prefix[0]=4
+This gives the XOR of everything before index 1 (which is just arr[0] = 4).
+*/
