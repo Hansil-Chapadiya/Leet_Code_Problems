@@ -92,3 +92,10 @@ public:
 
 //     return 0;
 // }
+
+static const int hansil = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
