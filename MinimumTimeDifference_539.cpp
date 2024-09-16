@@ -57,7 +57,13 @@ int main()
     cout << "Minimum Time Difference: " << obj.findMinDifference(timePoints) << " minutes" << endl;
     return 0;
 }
-
+static const int hansil = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
 /*
 when working with time is that the day "wraps around" after midnight. This means that we also need to consider the difference between the last time of the day (23:59 or 1439 minutes) and the first time of the day (00:00 or 0 minutes).
 
