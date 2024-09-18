@@ -38,3 +38,9 @@ int main()
     vector<int> nums = {3, 30, 34, 5, 9};
     cout << l1.largestNumber(nums);
 }
+static const int hansil = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
