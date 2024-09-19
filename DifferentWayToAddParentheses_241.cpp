@@ -28,7 +28,7 @@ public:
                 {
                     for (int r : right)
                     {
-                        if (c == '+')
+                        /* if (c == '+')
                         {
                             res.push_back(l + r);
                         }
@@ -39,6 +39,18 @@ public:
                         else if (c == '*')
                         {
                             res.push_back(l * r);
+                        } */
+                        switch (c)
+                        {
+                        case '+':
+                            res.push_back(l + r);
+                            break;
+                        case '-':
+                            res.push_back(l - r);
+                            break;
+                        case '*':
+                            res.push_back(l * r);
+                            break;
                         }
                     }
                 }
@@ -70,6 +82,12 @@ int main()
 
     return 0;
 }
+static const int hansil = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
 
 /*
 Concept	        Counts	                                Example (n = 3)
