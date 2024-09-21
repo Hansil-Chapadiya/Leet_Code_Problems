@@ -72,3 +72,60 @@ static const int hansil = []()
     std::cout.tie(nullptr);
     return 0;
 }();
+
+/*################################# USING DFS ############################*/
+class LexicoGraphicalNumber
+{
+private:
+    // DFS function to generate numbers in lexicographical order
+    void dfs(int current, int n, std::vector<int> &result)
+    {
+        if (current > n)
+            return;
+
+        // Add the current number to the result
+        result.push_back(current);
+
+        // Try to append digits (0 to 9) to the current number and recurse
+        for (int i = 0; i < 10; i++)
+        {
+            int next = current * 10 + i;
+            if (next > n)
+                break; // Stop if the number exceeds n
+            dfs(next, n, result);
+        }
+    }
+
+public:
+    std::vector<int> lexicalOrder(int n)
+    {
+        std::vector<int> result;
+
+        // Start DFS for numbers 1 to 9
+        for (int i = 1; i <= 9; i++)
+        {
+            if (i > n)
+                break;
+            dfs(i, n, result);
+        }
+
+        return result;
+    }
+};
+
+int main()
+{
+    LexicoGraphicalNumber l1;
+    int n = 100; // Example value of n
+    std::vector<int> result = l1.lexicalOrder(n);
+
+    // Output the result
+    std::cout << "Lexicographical order: ";
+    for (int num : result)
+    {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
