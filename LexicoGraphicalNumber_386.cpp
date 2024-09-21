@@ -149,9 +149,8 @@ public:
         }
 
         // Step 2: Sort the numbers lexicographically as strings
-        std::sort(result.begin(), result.end(), [](int a, int b) {
-            return std::to_string(a) < std::to_string(b);
-        });
+        std::sort(result.begin(), result.end(), [](int a, int b)
+                  { return std::to_string(a) < std::to_string(b); });
 
         return result;
     }
