@@ -52,7 +52,7 @@ public:
 
 // // int main()
 // // {
-// //     LexicoGraphicalNumber l1;
+// //     LexicoGraphicalNumber_wrong l1;
 // //     std::vector<int> result = l1.lexicalOrder(25);
 
 // //     // Output the result
@@ -113,10 +113,54 @@ public:
     }
 };
 
+// int main()
+// {
+//     LexicoGraphicalNumber l1;
+//     int n = 100; // Example value of n
+//     std::vector<int> result = l1.lexicalOrder(n);
+
+//     // Output the result
+//     std::cout << "Lexicographical order: ";
+//     for (int num : result)
+//     {
+//         std::cout << num << " ";
+//     }
+//     std::cout << std::endl;
+
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <vector>
+#include <algorithm> // for sort
+#include <string>
+
+class LexicoGraphicalNumber_bad_approach
+{
+public:
+    std::vector<int> lexicalOrder(int n)
+    {
+        std::vector<int> result;
+
+        // Step 1: Populate the vector with numbers from 1 to n
+        for (int i = 1; i <= n; ++i)
+        {
+            result.push_back(i);
+        }
+
+        // Step 2: Sort the numbers lexicographically as strings
+        std::sort(result.begin(), result.end(), [](int a, int b) {
+            return std::to_string(a) < std::to_string(b);
+        });
+
+        return result;
+    }
+};
+
 int main()
 {
-    LexicoGraphicalNumber l1;
-    int n = 100; // Example value of n
+    LexicoGraphicalNumber_bad_approach l1;
+    int n = 150; // You can change n to test other cases
     std::vector<int> result = l1.lexicalOrder(n);
 
     // Output the result
