@@ -55,3 +55,9 @@ int main()
               << solution.findKthNumber(n, k) << std::endl;
     return 0;
 }
+static const int hansil = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return 0;
+}();
