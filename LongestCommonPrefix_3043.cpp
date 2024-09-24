@@ -1,128 +1,63 @@
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 #include <string>
-using namespace std;
 
-class TrieNode
+class LongestPrefixFinder
 {
 public:
-    // Array for child nodes of each node
-    TrieNode *child[26];
-
-    // for end of word
-    bool wordEnd;
-
-    TrieNode()
+    // Function to store all prefixes in hashmap
+    void insertPrefixes(const std::vector<int> &arr1, std::unordered_map<std::string, int> &prefixMap)
     {
-        wordEnd = false;
-        for (int i = 0; i < 26; i++)
+        for (int num : arr1)
         {
-            child[i] = nullptr;
+            std::string numStr = std::to_string(num);
+            // Insert all possible prefixes into hashmap
+            for (int i = 1; i <= numStr.length(); i++)
+            {
+                std::string prefix = numStr.substr(0, i);
+                prefixMap[prefix] = num; // store the original number corresponding to the prefix
+            }
         }
+    }
+
+    // Function to find the longest common prefix in arr2
+    int findLongestPrefix(const std::vector<int> &arr2, std::unordered_map<std::string, int> &prefixMap)
+    {
+        int longestPrefix = -1;
+        for (int num : arr2)
+        {
+            std::string numStr = std::to_string(num);
+            for (int i = numStr.length(); i > 0; i--)
+            {
+                std::string prefix = numStr.substr(0, i);
+                if (prefixMap.find(prefix) != prefixMap.end())
+                {
+                    return prefixMap[prefix]; // Return the longest prefix match
+                }
+            }
+        }
+        return longestPrefix; // No match found
     }
 };
 
-// Method to insert a key into the Trie
-void insertKey(TrieNode *root, const string &key)
-{
-
-    // Initialize the curr pointer with the root node
-    TrieNode *curr = root;
-
-    // Iterate across the length of the string
-    for (char c : key)
-    {
-
-        // Check if the node exists for the
-        // current character in the Trie
-        if (curr->child[c - 'a'] == nullptr)
-        {
-
-            // If node for current character does
-            // not exist then make a new node
-            TrieNode *newNode = new TrieNode();
-
-            // Keep the reference for the newly
-            // created node
-            curr->child[c - 'a'] = newNode;
-        }
-
-        // Move the curr pointer to the
-        // newly created node
-        curr = curr->child[c - 'a'];
-    }
-
-    // Mark the end of the word
-    curr->wordEnd = true;
-}
-
-// Method to search a key in the Trie
-bool searchKey(TrieNode *root, const string &key)
-{
-
-    // Initialize the curr pointer with the root node
-    TrieNode *curr = root;
-
-    // Iterate across the length of the string
-    for (char c : key)
-    {
-
-        // Check if the node exists for the
-        // current character in the Trie
-        if (curr->child[c - 'a'] == nullptr)
-            return false;
-
-        // Move the curr pointer to the
-        // already existing node for the
-        // current character
-        curr = curr->child[c - 'a'];
-    }
-
-    // Return true if the word exists
-    // and is marked as ending
-    return curr->wordEnd;
-}
-
 int main()
 {
+    LongestPrefixFinder lpf;
+    std::unordered_map<std::string, int> prefixMap;
 
-    // Create am example Trie
-    TrieNode *root = new TrieNode();
-    vector<string> arr =
-        {"and", "ant", "do", "geek", "dad", "ball"};
-    for (const string &s : arr)
-    {
-        insertKey(root, s);
-    }
+    std::vector<int> arr1 = {100, 10, 1}; // First array
+    std::vector<int> arr2 = {10, 101, 5}; // Second array
 
-    // One by one search strings
-    vector<string> searchKeys = {"do", "gee", "bat"};
-    for (string &s : searchKeys)
-    {
-        cout << "Key : " << s << "\n";
-        if (searchKey(root, s))
-            cout << "Present\n";
-        else
-            cout << "Not Present\n";
-    }
+    // Insert all prefixes from arr1 into hashmap
+    lpf.insertPrefixes(arr1, prefixMap);
+
+    // Find the longest prefix from arr2
+    int result = lpf.findLongestPrefix(arr2, prefixMap);
+
+    std::cout << "Longest common prefix is: " << result << std::endl;
 
     return 0;
 }
 
-
-// class LongestCommonPrefix_3043
-// {
-// private:
-//     /* data */
-// public:
-//     LongestCommonPrefix_3043(/* args */);
-//     ~LongestCommonPrefix_3043();
-// };
-
-// LongestCommonPrefix_3043::LongestCommonPrefix_3043(/* args */)
-// {
-// }
-
-// LongestCommonPrefix_3043::~LongestCommonPrefix_3043()
-// {
-// }
+/* */
