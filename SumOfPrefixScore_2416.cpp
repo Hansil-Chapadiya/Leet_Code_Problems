@@ -85,6 +85,7 @@ int main()
 {
     SumOfPrefixScore_2416 s1;
     vector<string> words = {"abc", "ab", "bc", "b"};
+    // vector<string> words = {"abcd"};
     vector<int> result = s1.sumPrefixScores(words);
 
     for (int score : result)
