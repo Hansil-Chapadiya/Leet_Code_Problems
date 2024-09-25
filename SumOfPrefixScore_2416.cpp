@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
 
 class TrieNode
 {
@@ -20,7 +19,7 @@ public:
 };
 
 // Method to insert a word into the Trie and update prefix counts
-void insertKey(TrieNode *root, const string &key)
+void insertKey(TrieNode *root, const std::string &key)
 {
     TrieNode *curr = root;
     for (char c : key)
@@ -36,7 +35,7 @@ void insertKey(TrieNode *root, const string &key)
 }
 
 // Method to calculate the prefix score for a word
-int calculatePrefixScore(TrieNode *root, const string &key)
+int calculatePrefixScore(TrieNode *root, const std::string &key)
 {
     TrieNode *curr = root;
     int score = 0;
@@ -59,19 +58,19 @@ int calculatePrefixScore(TrieNode *root, const string &key)
 class SumOfPrefixScore_2416
 {
 public:
-    vector<int> sumPrefixScores(vector<string> &words)
+    std::vector<int> sumPrefixScores(std::vector<std::string> &words)
     {
-        vector<int> result;
+        std::vector<int> result;
         TrieNode *root = new TrieNode();
 
         // Step 1: Insert all words into the Trie
-        for (string &word : words)
+        for (std::string &word : words)
         {
             insertKey(root, word);
         }
 
         // Step 2: Calculate prefix score for each word
-        for (string &word : words)
+        for (std::string &word : words)
         {
             int prefixScore = calculatePrefixScore(root, word);
             result.push_back(prefixScore);
@@ -84,13 +83,20 @@ public:
 int main()
 {
     SumOfPrefixScore_2416 s1;
-    vector<string> words = {"abc", "ab", "bc", "b"};
-    // vector<string> words = {"abcd"};
-    vector<int> result = s1.sumPrefixScores(words);
+    // vector<string> words = {"abc", "ab", "bc", "b"};
+    std::vector<std::string> words = {"abcd"};
+    std::vector<int> result = s1.sumPrefixScores(words);
 
     for (int score : result)
     {
-        cout << score << " ";
+        std::cout << score << " ";
     }
     return 0;
 }
+static const int hansil = []()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return 0;
+}();
