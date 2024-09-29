@@ -5,27 +5,27 @@
 #include <string>
 
 // Doubly linked list node structure
-class ListNode
+class ListNode_
 {
 public:
     int count;                            // Frequency count
     std::unordered_set<std::string> keys; // Set of keys with this count
-    ListNode *prev, *next;                // Pointers to previous and next nodes in the list
+    ListNode_ *prev, *next;                // Pointers to previous and next nodes in the list
 
-    ListNode(int cnt) : count(cnt), prev(nullptr), next(nullptr) {}
+    ListNode_(int cnt) : count(cnt), prev(nullptr), next(nullptr) {}
 };
 
 class AllOOneDataStructure
 {
 private:
     std::unordered_map<std::string, int> keyCount; // Maps key -> frequency count
-    std::unordered_map<int, ListNode *> countNode; // Maps frequency count -> list node
-    ListNode *head, *tail;                         // Dummy head and tail for the doubly linked list
+    std::unordered_map<int, ListNode_ *> countNode; // Maps frequency count -> list node
+    ListNode_ *head, *tail;                         // Dummy head and tail for the doubly linked list
 
     // Inserts a new node with a given count after a specified node
-    ListNode *insertNodeAfter(ListNode *node, int count)
+    ListNode_ *insertNodeAfter(ListNode_ *node, int count)
     {
-        ListNode *newNode = new ListNode(count);
+        ListNode_ *newNode = new ListNode_(count);
         newNode->next = node->next;
         newNode->prev = node;
         if (node->next)
@@ -35,7 +35,7 @@ private:
     }
 
     // Removes a node from the doubly linked list
-    void removeNode(ListNode *node)
+    void removeNode(ListNode_ *node)
     {
         node->prev->next = node->next;
         if (node->next)
@@ -48,8 +48,8 @@ public:
     AllOOneDataStructure()
     {
         // Initialize the doubly linked list with dummy head and tail nodes
-        head = new ListNode(0); // Dummy head node
-        tail = new ListNode(0); // Dummy tail node
+        head = new ListNode_(0); // Dummy head node
+        tail = new ListNode_(0); // Dummy tail node
         head->next = tail;
         tail->prev = head;
     }
@@ -59,8 +59,8 @@ public:
         int count = keyCount[key]; // Get current count of key
         keyCount[key] = count + 1; // Increment key's count
 
-        ListNode *curNode = (count == 0) ? head : countNode[count];
-        ListNode *nextNode = curNode->next;
+        ListNode_ *curNode = (count == 0) ? head : countNode[count];
+        ListNode_ *nextNode = curNode->next;
 
         // If there is no node for count + 1, create a new one
         if (nextNode == tail || nextNode->count > count + 1)
@@ -85,7 +85,7 @@ public:
         if (count == 0)
             return;
 
-        ListNode *curNode = countNode[count];
+        ListNode_ *curNode = countNode[count];
         keyCount[key] = count - 1;
 
         if (count == 1)
@@ -94,7 +94,7 @@ public:
         }
         else
         {
-            ListNode *prevNode = curNode->prev;
+            ListNode_ *prevNode = curNode->prev;
             // If there is no node for count - 1, create a new one
             if (prevNode == head || prevNode->count < count - 1)
             {
@@ -124,5 +124,15 @@ public:
 };
 int main()
 {
+    AllOOneDataStructure *obj = new AllOOneDataStructure();
+    obj->inc("hello");
+    obj->inc("hello");
+    std::cout << obj->getMaxKey(); // return "hello"
+    std::cout << obj->getMinKey(); // return "hello"
+    obj->inc("leet");
+    std::cout << obj->getMaxKey(); // return "hello"
+    std::cout << obj->getMinKey(); // return "leet"
+    std::string param_3 = obj->getMaxKey();
+    std::string param_4 = obj->getMinKey();
     return 0;
 }
