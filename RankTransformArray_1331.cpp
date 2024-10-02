@@ -33,6 +33,10 @@ public:
         {
             res.push_back(rank_map[num]);
         }
+        for (const auto &pair : rank_map)
+        {
+            std::cout << pair.first << " -> " << pair.second << "\n";
+        }
 
         return res;
     }
@@ -44,10 +48,10 @@ int main()
     std::vector<int> arr = {37, 12, 28, 9, 100, 56, 80, 5, 12};
     std::vector<int> res = r1.arrayRankTransform(arr);
 
-    for (int i = 0; i < res.size(); i++)
-    {
-        std::cout << res[i] << " ";
-    }
+    // for (int i = 0; i < res.size(); i++)
+    // {
+    //     std::cout << res[i] << " ";
+    // }
     return 0;
 }
 static const int hansil = []()
