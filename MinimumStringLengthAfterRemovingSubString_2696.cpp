@@ -37,79 +37,44 @@ int main()
 /*
 #include <iostream>
 #include <string>
+
 class MinimumStringLengthAfterRemovingSubString_2696
 {
 private:
-    std::string removeAB(std::string s)
+    // Helper function to remove all "AB" and "CD" substrings from a given string
+    std::string removePatterns(std::string s)
     {
-        while (s.find("AB") != std::string::npos || s.find("CD") != std::string::npos)
+        while (true)
         {
-            std::string str = "";
-            if (int pos = s.find("AB") != std::string::npos)
-            {
-                if (pos == 1)
-                {
-                    str += s.substr(2, s.length());
-                    s = str;
-                }
-                else
-                {
-                    str += s.substr(0, pos);
-                    str += s.substr(pos + 1, s.length());
-                    s = str;
-                    std::cout << s << "\n";
-                }
-            }
-            else if(int pos = s.find("CD") != std::string::npos)
-            {
-                if (pos == 1)
-                {
-                    str += s.substr(2, s.length());
-                    s = str;
-                }
-                else
-                {
-                    str += s.substr(0, pos);
-                    str += s.substr(pos + 1, s.length());
-                    s = str;
-                    std::cout << s << "\n";
-                }
-            }
+            size_t ab_pos = s.find("AB");
+            size_t cd_pos = s.find("CD");
+
+            // If neither "AB" nor "CD" is found, break out of the loop
+            if (ab_pos == std::string::npos && cd_pos == std::string::npos)
+                break;
+
+            // Remove the first occurrence of "AB" or "CD"
+            if (ab_pos != std::string::npos)
+                s.erase(ab_pos, 2); // Remove "AB"
+            else if (cd_pos != std::string::npos)
+                s.erase(cd_pos, 2); // Remove "CD"
         }
         return s;
-    }
-    std::string removeCD(std::string s)
-    {
-        while (s.find("CD") != std::string::npos)
-        {
-            int pos = s.find("CD");
-            std::string str = "";
-            if (pos == 0)
-            {
-                str += s.substr(2, s.length());
-                s = str;
-            }
-            else
-            {
-                str += s.substr(0, pos);
-                str += s.substr(pos + 1, s.length());
-                s = str;
-                std::cout << s << "\n";
-            }
-        }
     }
 
 public:
     int minLength(std::string s)
     {
-        s = removeAB(s);
-        return s.length();
+        // Remove all occurrences of "AB" and "CD"
+        s = removePatterns(s);
+        return s.length(); // Return the length of the remaining string
     }
 };
+
 int main()
 {
     MinimumStringLengthAfterRemovingSubString_2696 m1;
-    std::cout << m1.minLength("DCDCBCBDACBBABDABABCCCBABCCCCCCCBDDBCDACDADABADDCDBBC");
+    std::cout << m1.minLength("DCDCBCBDACBBABDABABCCCBABCCCCCCCBDDBCDACDADABADDCDBBC") << std::endl;
     return 0;
 }
 
