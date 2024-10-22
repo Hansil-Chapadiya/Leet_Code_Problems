@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 
 class TreeNode
@@ -15,58 +16,44 @@ public:
 
 class KthLargestSumInBT_2583
 {
-private:
-    int height(TreeNode *root)
-    {
-        if (root == nullptr)
-        {
-            return 0;
-        }
-        int lheight = height(root->left);
-        int rheight = height(root->right);
-        return std::max(lheight, rheight) + 1;
-    }
-
-    long long sumCurrentLevel(TreeNode *root, int level)
-    {
-        if (root == nullptr)
-        {
-            return 0;
-        }
-        if (level == 1)
-        {
-            return root->val;
-        }
-        else if (level > 1)
-        {
-            // Recursively sum nodes at the current level
-            long long leftSum = sumCurrentLevel(root->left, level - 1);
-            long long rightSum = sumCurrentLevel(root->right, level - 1);
-            return leftSum + rightSum;
-        }
-        return 0;
-    }
-
 public:
-    std::vector<long long> track_sum;
-
     long long kthLargestLevelSum(TreeNode *root, int k)
     {
         if (root == nullptr)
-            return -1; // If tree is empty, return -1 or handle error
+            return -1; // Handle empty tree case
 
-        int h = height(root);
-        for (int i = 1; i <= h; i++)
+        std::queue<TreeNode *> q;
+        q.push(root);
+        std::priority_queue<long long, std::vector<long long>, std::greater<long long>> min_heap;
+
+        // BFS to traverse each level and compute the sum
+        while (!q.empty())
         {
-            track_sum.push_back(sumCurrentLevel(root, i));
+            int level_size = q.size();
+            long long level_sum = 0;
+
+            for (int i = 0; i < level_size; i++)
+            {
+                TreeNode *current = q.front();
+                q.pop();
+                level_sum += current->val;
+
+                if (current->left != nullptr)
+                    q.push(current->left);
+                if (current->right != nullptr)
+                    q.push(current->right);
+            }
+
+            // Maintain a min-heap to track the top k largest sums
+            min_heap.push(level_sum);
+            if (min_heap.size() > k)
+            {
+                min_heap.pop(); // Remove the smallest sum if heap size exceeds k
+            }
         }
-        if (k > track_sum.size() || k < 1)
-            return -1; // If k is out of bounds, return error value
 
-        // Sort in descending order
-        std::sort(track_sum.begin(), track_sum.end(), std::greater<long long>());
-
-        return track_sum[k - 1]; // Return k-th largest sum
+        // If there are fewer levels than k, return -1 (error case)
+        return min_heap.size() == k ? min_heap.top() : -1;
     }
 };
 
@@ -75,30 +62,21 @@ int main()
     KthLargestSumInBT_2583 K1;
 
     // Creating a sample tree:
-    //            20
-    //           /  \
-    //          8    9
-    //         / \  / \
-    //        2   1 3  7
-    //       / \
-    //      4   6
-    // TreeNode *root = new TreeNode(5);
-    // root->left = new TreeNode(8);
-    // root->left->right = new TreeNode(1);
-    // root->left->left = new TreeNode(2);
-    // root->left->left->left = new TreeNode(4);
-    // root->left->left->right = new TreeNode(6);
-    // root->right = new TreeNode(9);
-    // root->right->right = new TreeNode(7);
-    // root->right->left = new TreeNode(3);
+    //            1
+    //           /
+    //          2
+    //         /
+    //        3
     TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->left->left = new TreeNode(3);
-    // Find the 2nd largest level sum
-    std::cout << "2nd Largest Level Sum: " << K1.kthLargestLevelSum(root, 1) << std::endl;
+
+    // Find the 1st largest level sum
+    std::cout << "1st Largest Level Sum: " << K1.kthLargestLevelSum(root, 1) << std::endl;
 
     return 0;
 }
+
 static const int hansil = []()
 {
     std::ios::sync_with_stdio(false);
