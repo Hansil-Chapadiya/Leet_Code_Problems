@@ -34,8 +34,8 @@ int main()
 {
     FlipEquivalentBT_951 f1;
     TreeNode *root1 = new TreeNode(20);
-    TreeNode *root2 = new TreeNode(10);
-    f1.flipEquiv(root1, root2);
+    TreeNode *root2 = new TreeNode(20);
+    std::cout << f1.flipEquiv(root1, root2);
     return 0;
 }
 static const int hansil = []()
