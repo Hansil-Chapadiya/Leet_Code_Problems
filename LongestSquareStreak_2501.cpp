@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_set>
 #include <vector>
+#include <cmath>
 class LongestConsequtiveSequence_128
 {
 private:
@@ -15,8 +16,11 @@ public:
         // Iterate through each element to find consecutive sequences
         for (long long num : unique_elements)
         {
+            // Check if the number is the start of a sequence
+            // if (unique_elements.find(num*num) == unique_elements.end())
+            // {
             long long current_num = num;
-            long long count = 1;
+            long long count = 0;
 
             // Count the length of the sequence
             while (unique_elements.find(current_num * current_num) != unique_elements.end())
@@ -27,9 +31,10 @@ public:
 
             // Update maximum count of consecutive elements
             max_count = std::max(max_count, count);
+            // }
         }
 
-        return max_count ? max_count : -1;
+        return max_count ? max_count + 1 : -1;
     }
 };
 int main()
@@ -37,10 +42,10 @@ int main()
     LongestConsequtiveSequence_128 l1;
     // std::vector<int> nums = {100, 4, 200, 1, 3, 2};
     // std::vector<int> nums = {4,3,6,16,8,2};
-    // std::vector<int> nums = {2,3,5,6,7};
+    std::vector<int> nums = {2, 3, 5, 6, 7};
     // std::vector<int> nums = {92682,18532};
     // std::vector<int> nums = {27,3,9,18,81};
-    std::vector<int> nums = {2, 49, 3, 5, 7, 2401};
+    // std::vector<int> nums = {2,49,3,5,7,2401};
     // std::vector<int> nums = {81, 2, 4, 16, 3, 6561};
     std::cout << l1.longestSquareStreak(nums);
     return 0;
@@ -65,3 +70,9 @@ for (int num : data) {
 return 0;
 
  */
+static const int hansil = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return 0;
+}();
