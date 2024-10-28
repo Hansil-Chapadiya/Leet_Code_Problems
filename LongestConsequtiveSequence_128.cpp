@@ -1,40 +1,46 @@
 #include <iostream>
+#include <unordered_set>
 #include <vector>
-#include <algorithm>
-#include <set>
 class LongestConsequtiveSequence_128
 {
 private:
     /* data */
 public:
-    int longestConsecutive(std::vector<int> &nums)
+    int longestConsecutive(const std::vector<int> &nums)
     {
-        std::set<int> unique_elements(nums.begin(), nums.end());
-        int diff = 1;
-        int cnt = 1;
-        auto iterator = unique_elements.begin();
-        auto next_iterator = std::next(iterator);
+        // Insert elements into an unordered_set to remove duplicates
+        std::unordered_set<int> unique_elements(nums.begin(), nums.end());
+        int max_count = 0;
 
-        while (next_iterator != unique_elements.end())
+        // Iterate through each element to find consecutive sequences
+        for (int num : unique_elements)
         {
-            diff = *next_iterator - *iterator;
-            if (diff == 1)
+            // Check if the number is the start of a sequence
+            if (unique_elements.find(num - 1) == unique_elements.end())
             {
-                cnt++;
-            }
+                int current_num = num;
+                int count = 1;
 
-            ++iterator;
-            ++next_iterator;
+                // Count the length of the sequence
+                while (unique_elements.find(current_num + 1) != unique_elements.end())
+                {
+                    current_num += 1;
+                    count += 1;
+                }
+
+                // Update maximum count of consecutive elements
+                max_count = std::max(max_count, count);
+            }
         }
 
-        return cnt;
+        return max_count;
     }
 };
 int main()
 {
     LongestConsequtiveSequence_128 l1;
     // std::vector<int> nums = {100, 4, 200, 1, 3, 2};
-    std::vector<int> nums = {0,3,7,2,5,8,4,6,0,1};
+    std::vector<int> nums = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
     std::cout << l1.longestConsecutive(nums);
     return 0;
 }
