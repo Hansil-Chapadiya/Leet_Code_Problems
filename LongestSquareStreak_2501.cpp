@@ -15,9 +15,6 @@ public:
         // Iterate through each element to find consecutive sequences
         for (long long num : unique_elements)
         {
-            // Check if the number is the start of a sequence
-            // if (unique_elements.find(num*num) == unique_elements.end())
-            // {
             long long current_num = num;
             long long count = 1;
 
@@ -30,7 +27,6 @@ public:
 
             // Update maximum count of consecutive elements
             max_count = std::max(max_count, count);
-            // }
         }
 
         return max_count ? max_count : -1;
