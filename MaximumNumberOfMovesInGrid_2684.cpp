@@ -12,18 +12,23 @@ public:
         int max = 0;
         int moves = 0;
         std::vector<std::vector<int>> dp(row + 1, std::vector<int>(column, 0));
-        int i = 0; // Starting row index
-        int j = 0; // Starting column index
+        int i = 0;          // Starting row index
+        int j = 0;          // Starting column index
+        int move_count = 0; // Initialize the move counter
 
         while (j < column - 1) // Traverse until the last column
         {
             // Check boundaries and update dp values with grid values if in bounds
-            if (i > 0 && j + 1 < column)
+            if (i > 0 && j + 1 < column && grid[i - 1][j + 1] > grid[i][j])
             {
                 dp[i - 1][j + 1] = grid[i - 1][j + 1];
             }
-            dp[i][j + 1] = grid[i][j + 1];
-            if (i + 1 < row && j + 1 < column)
+            if (grid[i][j + 1] > grid[i][j])
+            {
+                dp[i][j + 1] = grid[i][j + 1];
+            }
+
+            if (i + 1 < row && j + 1 < column && grid[i + 1][j + 1] > grid[i][j])
             {
                 dp[i + 1][j + 1] = grid[i + 1][j + 1];
             }
@@ -54,13 +59,16 @@ public:
                 i = i + 1;
                 j = j + 1;
             }
+            move_count++;
         }
+        return move_count;
     }
 };
 int main()
 {
     MaximumNumberOfMovesInGrid_2684 m1;
-    std::vector<std::vector<int>> grid = {{2, 4, 3, 5}, {5, 4, 9, 3}, {3, 4, 2, 11}, {10, 9, 13, 15}};
-    m1.maxMoves(grid);
+    // std::vector<std::vector<int>> grid = {{2, 4, 3, 5}, {5, 4, 9, 3}, {3, 4, 2, 11}, {10, 9, 13, 15}};
+    std::vector<std::vector<int>> grid = {{3, 2, 4}, {2, 1, 9}, {1, 1, 7}};
+    std::cout << m1.maxMoves(grid);
     return 0;
 }
