@@ -2,72 +2,54 @@
 #include <vector>
 #include <algorithm>
 
-class MaximumNumberOfMovesInGrid_2684
-{
+class MaximumNumberOfMovesInGrid_2684 {
 public:
-    int maxMoves(std::vector<std::vector<int>> &grid)
-    {
-        int row = grid.size();
-        int column = grid[0].size();
-        int max_move_count = 0; // Initialize the maximum move counter
+    int maxMoves(std::vector<std::vector<int>>& grid) {
+        int numRows = grid.size();
+        int numCols = grid[0].size();
+        int maxColumnReached = 0;
+        std::vector<int> maxMovesAtRow(numRows, 0); // Tracks maximum moves for each row
 
-        // Traverse from each row in the first column to maximize the move count
-        for (int start_row = 0; start_row < row; ++start_row)
-        {
-            int i = start_row;  // Set starting row index
-            int j = 0;          // Starting column index
-            int move_count = 0; // Reset move counter for each start row
+        // Start from the second column, as the first column is the starting point
+        for (int col = 1; col < numCols; ++col) {
+            int prevLeftTop = 0;
+            bool movePossibleInColumn = false;
 
-            while (j < column - 1) // Traverse until the last column
-            {
-                // Current cell value
-                int current_value = grid[i][j];
+            // Traverse each row in the current column
+            for (int row = 0; row < numRows; ++row) {
+                int maxMovesHere = -1; // Default to -1 (no move possible)
+                int newPrevLeftTop = maxMovesAtRow[row]; // Track previous max moves at this row
 
-                // Variables to hold the next cell with the maximum strictly greater value
-                int max_val = current_value; // Initial value for comparison
-                int next_i = -1, next_j = -1;
-
-                // Check each allowed direction for a strictly greater value
-                if (i > 0 && j + 1 < column && grid[i - 1][j + 1] > current_value && grid[i - 1][j + 1] > max_val)
-                {
-                    max_val = grid[i - 1][j + 1];
-                    next_i = i - 1;
-                    next_j = j + 1;
-                }
-                if (j + 1 < column && grid[i][j + 1] > current_value && grid[i][j + 1] > max_val)
-                {
-                    max_val = grid[i][j + 1];
-                    next_i = i;
-                    next_j = j + 1;
-                }
-                if (i + 1 < row && j + 1 < column && grid[i + 1][j + 1] > current_value && grid[i + 1][j + 1] > max_val)
-                {
-                    max_val = grid[i + 1][j + 1];
-                    next_i = i + 1;
-                    next_j = j + 1;
+                // Check if a move from the upper-left cell is possible
+                if (row > 0 && prevLeftTop != -1 && grid[row][col] > grid[row - 1][col - 1]) {
+                    maxMovesHere = std::max(maxMovesHere, prevLeftTop + 1);
                 }
 
-                // Move to the position with the maximum strictly greater value if found
-                if (next_j == -1)
-                    break; // No valid move; stop if no strictly greater adjacent element found
+                // Check if a move from the left cell is possible
+                if (maxMovesAtRow[row] != -1 && grid[row][col] > grid[row][col - 1]) {
+                    maxMovesHere = std::max(maxMovesHere, maxMovesAtRow[row] + 1);
+                }
 
-                // Move to the next cell and increment move count
-                i = next_i;
-                j = next_j;
-                move_count++;
+                // Check if a move from the lower-left cell is possible
+                if (row + 1 < numRows && maxMovesAtRow[row + 1] != -1 && grid[row][col] > grid[row + 1][col - 1]) {
+                    maxMovesHere = std::max(maxMovesHere, maxMovesAtRow[row + 1] + 1);
+                }
+
+                maxMovesAtRow[row] = maxMovesHere; // Update the max moves at the current row
+                movePossibleInColumn = movePossibleInColumn || (maxMovesAtRow[row] != -1);
+                prevLeftTop = newPrevLeftTop; // Update prevLeftTop for the next row
             }
 
-            // Update the maximum move count if the current path yielded more moves
-            max_move_count = std::max(max_move_count, move_count);
+            if (!movePossibleInColumn) break; // Exit if no moves are possible in this column
+            maxColumnReached = col; // Update max column reached if moves are found
         }
 
-        return max_move_count; // Return the maximum number of moves taken from any starting row
+        return maxColumnReached; // Return the farthest column index reached
     }
 };
 
-int main()
-{
-    MaximumNumberOfMovesInGrid_2684 m1;
+int main() {
+    MaximumNumberOfMovesInGrid_2684 solver;
     std::vector<std::vector<int>> grid = {
         {56, 137, 288, 177, 252, 297, 63, 107, 252, 37},
         {102, 89, 50, 276, 41, 176, 105, 242, 282, 259},
@@ -83,6 +65,6 @@ int main()
         {16, 288, 77, 159, 288, 62, 4, 71, 221, 195}
     };
 
-    std::cout << "Maximum moves: " << m1.maxMoves(grid) << std::endl;
+    std::cout << "Maximum moves: " << solver.maxMoves(grid) << std::endl;
     return 0;
 }
