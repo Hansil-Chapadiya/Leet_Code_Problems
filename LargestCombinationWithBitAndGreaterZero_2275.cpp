@@ -10,29 +10,48 @@ private:
 public:
     int largestCombination(std::vector<int> &candidates)
     {
-        int i = 0;
+        // int i = 0;
 
+        // // Count the bits set for each bit position from 0 to 23
+        // while (i < 24)
+        // {
+        //     for (auto &num : candidates)
+        //     {
+        //         if ((num & (1 << i)) != 0)
+        //         {
+        //             bitcount_map[i]++;
+        //         }
+        //     }
+        //     i++;
+        // }
+
+        // // Find the bit position with the maximum count
+        // auto max_size = std::max_element(bitcount_map.begin(), bitcount_map.end(),
+        //                                  [](const auto &lhs, const auto &rhs)
+        //                                  {
+        //                                      return lhs.second < rhs.second;
+        //                                  });
+
+        // return max_size->second; // Returns the maximum count of set bits
+
+        int i = 0;
+        int max = 0;
         // Count the bits set for each bit position from 0 to 23
         while (i < 24)
         {
+            int count = 0;
             for (auto &num : candidates)
             {
                 if ((num & (1 << i)) != 0)
                 {
-                    bitcount_map[i]++;
+                    count++;
                 }
+                max = std::max(max, count);
             }
             i++;
         }
 
-        // Find the bit position with the maximum count
-        auto max_size = std::max_element(bitcount_map.begin(), bitcount_map.end(),
-                                         [](const auto &lhs, const auto &rhs)
-                                         {
-                                             return lhs.second < rhs.second;
-                                         });
-
-        return max_size->second; // Returns the maximum count of set bits
+        return max;
     }
 };
 int main()
