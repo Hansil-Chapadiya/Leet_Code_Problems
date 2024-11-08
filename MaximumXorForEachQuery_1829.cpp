@@ -26,7 +26,7 @@ public:
         std::vector<int> xor_product(nums.size());
         for (int i = 1; i < nums.size(); i++)
         {
-            xor_product[i] = xor_product[i -1] ^ nums[i];
+            xor_product[i] = xor_product[i - 1] ^ nums[i];
         }
 
         std::vector<int> ans(nums.size(), 0);
@@ -46,7 +46,7 @@ int main()
     std::vector<int> ans = m1.getMaximumXor(nums, 2);
     for (auto num : ans)
     {
-        std::cout<<num<<" ";
+        std::cout << num << " ";
     }
 
     return 0;
