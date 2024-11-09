@@ -1,3 +1,4 @@
+#include <iostream>
 class MinimumEndValue {
 public:
     long long findMinimumEnd(int sequenceLength, int targetAND) {
@@ -27,3 +28,10 @@ public:
         return endValue;
     }
 };
+int main()
+{
+
+    MinimumEndValue m1;
+    std::cout<<m1.findMinimumEnd(3,4);
+    return 0;
+}
