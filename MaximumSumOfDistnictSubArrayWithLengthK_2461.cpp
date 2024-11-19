@@ -9,39 +9,39 @@ private:
 public:
     long long maximumSubarraySum(std::vector<int> &nums, int k)
     {
+        std::unordered_set<int> uniqueElements;
+        long long maxSum = 0, currentSum = 0;
+        int start = 0;
 
-        // auto unique = std::unique(nums.begin(), nums.end());
-        // nums.erase(unique, nums.end());
-
-        // if (nums.size() < k)
-        // {
-        //     return 0;
-        // }
-        long long max = 0;
-        for (int i = 0; i < (nums.size() - k + 1); i++)
+        for (int end = 0; end < nums.size(); ++end)
         {
-            std::unordered_set<int> uniqueElements;
-            long long sum = 0;
-            bool isUnique = true;
+            int currentElement = nums[end];
 
-            for (int j = 0; j < k; j++)
+            // If the element is already in the set, remove elements from the start
+            while (uniqueElements.count(currentElement) > 0)
             {
-                int currentElement = nums[i + j];
-                if (uniqueElements.count(currentElement) > 0)
-                {
-                    isUnique = false; // Subarray has duplicates
-                    break;
-                }
-                uniqueElements.insert(currentElement);
-                sum += nums[i + j];
+                uniqueElements.erase(nums[start]);
+                currentSum -= nums[start];
+                ++start;
             }
-            // If all elements in the subarray are unique, update maxSum
-            if (isUnique)
+
+            // Add the current element to the window
+            uniqueElements.insert(currentElement);
+            currentSum += currentElement;
+
+            // Check if the window size is valid (<= k) and update maxSum
+            if (end - start + 1 == k)
             {
-                max = std::max(max, sum);
+                maxSum = std::max(maxSum, currentSum);
+
+                // Slide the window forward by removing the element at `start`
+                uniqueElements.erase(nums[start]);
+                currentSum -= nums[start];
+                ++start;
             }
         }
-        return max;
+
+        return maxSum;
     }
 };
 int main()
