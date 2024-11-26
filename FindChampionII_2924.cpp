@@ -3,7 +3,7 @@
 #include <unordered_map>
 
 // Class definition for the FindChampion problem
-class FindChampion_2924
+class FindChampionII_2924
 {
 private:
     // No private members in this example
@@ -41,7 +41,7 @@ public:
 int main()
 {
     // Create an instance of the FindChampion_2924 class
-    FindChampion_2924 f1;
+    FindChampionII_2924 f1;
 
     // Example input: edges represented as a vector of pairs (from, to)
     // Uncomment the desired input and comment out the other for testing
