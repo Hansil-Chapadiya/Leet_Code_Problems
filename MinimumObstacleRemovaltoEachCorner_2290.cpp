@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <climits>
 class Solution
 {
 private:
@@ -68,3 +69,12 @@ public:
                col < obstacleGrid[0].size();
     }
 };
+int main()
+{
+    std::vector<std::vector<int>> grid = {
+        {0, 1, 1},
+        {0, 1, 0},
+        {0, 0, 0}};
+    Solution s1;
+    std::cout << s1.minimumObstacles(grid);
+}
