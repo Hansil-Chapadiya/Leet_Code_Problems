@@ -48,10 +48,6 @@ class Solution:
         return 0 <= row < rows and 0 <= col < cols and (row, col) not in visited
 
 
-grid = [
-    [0, 2, 3],
-    [1, 2, 4],
-    [2, 3, 5]
-]
+grid = [[0, 2, 3], [1, 2, 4], [2, 3, 5]]
 solution = Solution()
 print(solution.minimumTime(grid))
