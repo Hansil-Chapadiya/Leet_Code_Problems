@@ -1,5 +1,6 @@
 from collections import defaultdict, deque
 
+
 def validArrangement(pairs):
     # Step 1: Build the graph and track in-degrees and out-degrees
     graph = defaultdict(list)
@@ -38,4 +39,6 @@ def validArrangement(pairs):
 
     return result
 
-pairs = [[5,1],[4,5],[11,9],[9,4]]
+
+pairs = [[5, 1], [4, 5], [11, 9], [9, 4]]
+print(validArrangement(pairs))
