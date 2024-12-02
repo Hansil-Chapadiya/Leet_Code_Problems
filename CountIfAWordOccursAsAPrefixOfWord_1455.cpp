@@ -14,6 +14,8 @@ private:
         {
             vec_str.push_back(word);
         }
+
+        return vec_str;
     }
 
 public:
@@ -32,14 +34,17 @@ public:
         }
         if (flag)
         {
-            return i;
-        }
-
-        for (auto word : extracted_string)
-        {
-            if (word.find(searchWord) == 0)
-            {
-            }
+            return i + 1;
         }
     }
 };
+int main()
+{
+    // std::string sentence = "i love eating burger";
+    std::string sentence = "this problem is an easy problem";
+    // std::string searchword = "burg";
+    std::string searchword = "pro";
+    CountIfAWordOccursAsAPrefixOfWord_1455 c1;
+    std::cout << c1.isPrefixOfWord(sentence, searchword);
+    return 0;
+}
