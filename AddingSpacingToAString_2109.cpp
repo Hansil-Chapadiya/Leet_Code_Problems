@@ -42,3 +42,20 @@ int main()
     std::string s = "EnjoyYourCoffee";
     std::cout << a1.addSpaces(s, spaces);
 }
+
+/*
+std::string result;
+    result.reserve(s.size() + spaces.size()); // Reserve memory for efficiency
+
+    int prev = 0; // Tracks the start of the next substring
+    for (int space : spaces) {
+        // Append the substring from the previous position to the current space position
+        result += s.substr(prev, space - prev);
+        result += ' '; // Add the space
+        prev = space; // Move the start position forward
+    }
+
+    // Append the remainder of the string
+    result += s.substr(prev);
+    return result;
+*/
