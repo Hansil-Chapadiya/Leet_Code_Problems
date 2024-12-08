@@ -36,6 +36,7 @@ def maxTwoEvents(events: List[List[int]]) -> int:
 
 
 # Test case
-events = [[1, 3, 3], [3, 4, 4], [2, 5, 2], [6, 7, 4]]
+# events = [[1, 3, 3], [3, 4, 4], [2, 5, 2], [6, 7, 4]]
+events = [[1,3,2],[4,5,2],[2,4,3]]
 max_sum = maxTwoEvents(events)
 print(max_sum)
