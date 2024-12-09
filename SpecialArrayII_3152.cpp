@@ -13,6 +13,7 @@ public:
         std::vector<int> parityChange(n - 1, 0);
         for (int i = 0; i < n - 1; i++)
         {
+            // If adjacent elements have different parity, set parityChange[i] = 1, else 0
             parityChange[i] = (nums[i] % 2 != nums[i + 1] % 2) ? 1 : 0;
         }
 
@@ -28,11 +29,20 @@ public:
         for (auto &q : queries)
         {
             int from = q[0], to = q[1];
-            // Calculate total number of parity changes in the subarray [from, to]
-            int totalChanges = parityPrefix[to] - (from > 0 ? parityPrefix[from - 1] : 0);
 
-            // If total changes is exactly (to - from), then it is "special"
-            special.push_back(totalChanges == (to - from));
+            // If from == to, subarray has only one element, so it is automatically "special"
+            if (from == to)
+            {
+                special.push_back(true);
+            }
+            else
+            {
+                // Calculate total number of parity changes in the subarray [from, to]
+                int totalChanges = parityPrefix[to] - parityPrefix[from];
+
+                // If total changes is exactly (to - from), then it is "special"
+                special.push_back(totalChanges == (to - from));
+            }
         }
 
         return special;
@@ -47,7 +57,7 @@ int main()
     std::vector<bool> special = s1.isArraySpecial(nums, queries);
     for (bool val : special)
     {
-        std::cout << val << " ";
+        std::cout << (val ? "true" : "false") << " ";
     }
     return 0;
 }
