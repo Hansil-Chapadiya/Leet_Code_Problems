@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <climits>
+#include <queue>
 class FinalArrayStateAfterKMultiplicationOperationsI_3264
 {
 private:
@@ -9,17 +10,36 @@ private:
 public:
     std::vector<int> getFinalState(std::vector<int> &nums, int k, int multiplier)
     {
-        for (int i = 0; i < k; i++)
+        // for (int i = 0; i < k; i++)
+        // {
+        //     auto min = std::min_element(nums.begin(), nums.end());
+        //     int index = std::distance(nums.begin(), min);
+        //     // std::cout << *min << " " << index << std::endl;
+        //     nums[index] *= multiplier;
+        //     // for (auto n : nums)
+        //     // {
+        //     //     std::cout << n << " ";
+        //     // }
+        //     // std::cout << std::endl;
+
+        // }
+        // return nums;
+
+        int n = nums.size();
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
+
+        for (int i = 0; i < n; i++)
         {
-            auto min = std::min_element(nums.begin(), nums.end());
-            int index = std::distance(nums.begin(), min);
-            // std::cout << *min << " " << index << std::endl;
-            nums[index] *= multiplier;
-            // for (auto n : nums)
-            // {
-            //     std::cout << n << " ";
-            // }
-            // std::cout << std::endl;
+            minHeap.push({nums[i], i});
+        }
+
+        while (k)
+        {
+            auto [value, index] = minHeap.top();
+            nums[index] = nums[index] * multiplier;
+            minHeap.pop();
+            minHeap.push({nums[index], index});
+            k--;
         }
         return nums;
     }
