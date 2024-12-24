@@ -1,4 +1,4 @@
-#include <iostream>
+/* #include <iostream>
 #include <vector>
 #include <queue>
 #include <algorithm>
@@ -113,6 +113,96 @@ int main()
     std::vector<std::vector<int>> edges1 = {{0, 1}, {1, 2}, {1, 3}};
     std::vector<std::vector<int>> edges2 = {{0, 1}, {1, 2}, {2, 3}, {3, 4}};
     int result = f1.minimumDiameterAfterMerge(edges1, edges2);
+    std::cout << "Minimum Diameter After Merge: " << result << std::endl;
+    return 0;
+}
+ */
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+class Solution
+{
+public:
+    // Function to calculate the diameter of an undirected tree using a modified Kahn's algorithm
+    static int calculateTreeDiameter(std::vector<std::vector<int>> &edges)
+    {
+        int numNodes = edges.size() + 1; // Total nodes in the tree
+        std::vector<int> degree(numNodes, 0);
+        std::vector<std::vector<int>> adjacencyList(numNodes);
+
+        // Build adjacency list and degree count
+        for (auto &edge : edges)
+        {
+            int nodeA = edge[0], nodeB = edge[1];
+            adjacencyList[nodeA].push_back(nodeB);
+            adjacencyList[nodeB].push_back(nodeA);
+            degree[nodeA]++;
+            degree[nodeB]++;
+        }
+
+        // Initialize a queue to process leaf nodes
+        std::queue<int> leafQueue;
+        for (int i = 0; i < numNodes; i++)
+        {
+            if (degree[i] == 1)
+            { // Leaf node
+                leafQueue.push(i);
+            }
+        }
+
+        int levels = 0;                // Tracks levels of inward traversal
+        int remainingNodes = numNodes; // Nodes left in the tree
+
+        // Process the tree inward toward the center
+        while (remainingNodes > 2)
+        { // At most two nodes can remain
+            int leafCount = leafQueue.size();
+            remainingNodes -= leafCount; // Reduce remaining nodes by the number of leaves
+
+            for (int i = 0; i < leafCount; i++)
+            {
+                int currentLeaf = leafQueue.front();
+                leafQueue.pop();
+                for (int neighbor : adjacencyList[currentLeaf])
+                {
+                    // Remove edge to make the neighbor a leaf
+                    if (--degree[neighbor] == 1)
+                    {
+                        leafQueue.push(neighbor);
+                    }
+                }
+            }
+            levels++; // Increment level after processing current batch of leaves
+        }
+
+        // Diameter calculation based on remaining nodes
+        return (remainingNodes == 2) ? 2 * levels + 1 : 2 * levels;
+    }
+
+    // Function to calculate the minimum possible diameter after merging two trees
+    static int calculateMinimumDiameterAfterMerge(std::vector<std::vector<int>> &tree1Edges,
+                                                  std::vector<std::vector<int>> &tree2Edges)
+    {
+        int tree1Diameter = calculateTreeDiameter(tree1Edges);
+        int tree2Diameter = calculateTreeDiameter(tree2Edges);
+
+        // Calculate minimum diameter after merging the two trees
+        return std::max({tree1Diameter,
+                         tree2Diameter,
+                         (tree1Diameter + 1) / 2 + (tree2Diameter + 1) / 2 + 1});
+    }
+};
+
+int main()
+{
+    Solution solution;
+    std::vector<std::vector<int>> tree1Edges = {{0, 1}, {0, 2}, {0, 3}};
+    std::vector<std::vector<int>> tree2Edges = {{0, 1}};
+
+    int result = solution.calculateMinimumDiameterAfterMerge(tree1Edges, tree2Edges);
     std::cout << "Minimum Diameter After Merge: " << result << std::endl;
     return 0;
 }
