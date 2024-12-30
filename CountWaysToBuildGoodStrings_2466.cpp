@@ -35,6 +35,13 @@ public:
 int main()
 {
     CountWaysToBuildGoodStrings_2466 c1;
-    std::cout<<c1.countGoodStrings(3, 3, 1, 1);
+    std::cout << c1.countGoodStrings(3, 3, 1, 1);
     return 0;
 }
+static const int hansil = []()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return 0;
+}();
