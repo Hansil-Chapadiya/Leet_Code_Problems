@@ -60,7 +60,7 @@ int main()
 }
  */
 
-#include <iostream>
+/* #include <iostream>
 #include <string>
 #include <unordered_set>
 
@@ -108,5 +108,66 @@ int main()
 {
     UniqueLength3PalindromicSubsequences_1930 u1;
     std::cout << u1.countPalindromicSubsequence("aabca") << std::endl; // Expected output: 3 ("aba", "aaa", "aca")
+    return 0;
+}
+ */
+
+#include <iostream>
+#include <string>
+#include <unordered_set>
+#include <vector>
+
+class UniqueLength3PalindromicSubsequences_1930
+{
+public:
+    int countPalindromicSubsequence(std::string s)
+    {
+        int n = s.length();
+        std::vector<int> leftMask(n, 0), rightMask(n, 0);
+
+        // Compute the leftMask array
+        int mask = 0;
+        for (int i = 0; i < n; ++i)
+        {
+            mask |= (1 << (s[i] - 'a')); // Set the bit corresponding to the current character
+            leftMask[i] = mask;
+        }
+
+        // Compute the rightMask array
+        mask = 0;
+        for (int i = n - 1; i >= 0; --i)
+        {
+            mask |= (1 << (s[i] - 'a')); // Set the bit corresponding to the current character
+            rightMask[i] = mask;
+        }
+
+        std::unordered_set<std::string> uniquePalindromes;
+
+        // Iterate over all possible middle characters
+        for (int i = 1; i < n - 1; ++i)
+        {
+            char middle = s[i];
+            int left = leftMask[i - 1];
+            int right = rightMask[i + 1];
+
+            // Check all possible characters 'a' to 'z' for left and right
+            for (char c = 'a'; c <= 'z'; ++c)
+            {
+                int bit = (1 << (c - 'a'));
+                if ((left & bit) && (right & bit)) // If character is present on both sides
+                {
+                    uniquePalindromes.insert(std::string(1, c) + middle + c);
+                }
+            }
+        }
+
+        return uniquePalindromes.size();
+    }
+};
+
+int main()
+{
+    UniqueLength3PalindromicSubsequences_1930 u1;
+    std::cout << u1.countPalindromicSubsequence("aabca") << std::endl; // Expected output: 3 ("aaa", "aba", "aca")
     return 0;
 }
