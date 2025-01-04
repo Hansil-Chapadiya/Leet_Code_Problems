@@ -1,4 +1,4 @@
-#include <iostream>
+/* #include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_set>
@@ -56,5 +56,57 @@ int main()
 {
     UniqueLength3PalindromicSubsequences_1930 u1;
     std::cout << u1.countPalindromicSubsequence("aabca") << std::endl; // Expected output: 3
+    return 0;
+}
+ */
+
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+class UniqueLength3PalindromicSubsequences_1930
+{
+public:
+    int countPalindromicSubsequence(std::string s)
+    {
+        int n = s.length();
+        std::unordered_set<std::string> uniquePalindromes;
+
+        // Iterate over all possible middle characters
+        for (int i = 1; i < n - 1; ++i)
+        {
+            char middle = s[i];
+            std::unordered_set<char> leftSeen, rightSeen;
+
+            // Collect characters to the left of `i`
+            for (int j = 0; j < i; ++j)
+            {
+                leftSeen.insert(s[j]);
+            }
+
+            // Collect characters to the right of `i`
+            for (int j = i + 1; j < n; ++j)
+            {
+                rightSeen.insert(s[j]);
+            }
+
+            // Form palindromes with `middle` as the center
+            for (char left : leftSeen)
+            {
+                if (rightSeen.count(left))
+                {
+                    uniquePalindromes.insert(std::string(1, left) + middle + left);
+                }
+            }
+        }
+
+        return uniquePalindromes.size();
+    }
+};
+
+int main()
+{
+    UniqueLength3PalindromicSubsequences_1930 u1;
+    std::cout << u1.countPalindromicSubsequence("aabca") << std::endl; // Expected output: 3 ("aba", "aaa", "aca")
     return 0;
 }
