@@ -47,3 +47,19 @@ int main()
 
     return 0;
 }
+
+/*
+def minOperations(boxes):
+    n = len(boxes)
+    answer = [0] * n  # Initialize result array with zeros
+
+    for i in range(n):  # For each target box
+        moves = 0
+        for j in range(n):  # Check all other boxes
+            if boxes[j] == '1':  # If the box has a ball
+                moves += abs(j - i)  # Add the distance to moves
+        answer[i] = moves  # Store the result for box i
+
+    return answer
+
+ */
