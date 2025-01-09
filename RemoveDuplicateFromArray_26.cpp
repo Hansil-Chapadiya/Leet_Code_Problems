@@ -8,7 +8,7 @@ private:
 public:
     int removeDuplicates(std::vector<int> &nums)
     {
-        int c = 0;
+        /* int c = 0;
         if (nums.size() == 0)
         {
             return 0;
@@ -21,7 +21,19 @@ public:
                 nums[c] = nums[i];
             }
         }
-        return c + 1;
+        return c + 1; */
+        int c = 0;
+        if (nums.size() == 0)
+        {
+            return 0;
+        }
+        std::set<int> expectednum;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            expectednum.insert(nums[i]);
+        }
+        nums = std::vector<int>(expectednum.begin(), expectednum.end());
+        return expectednum.size();
     }
 };
 int main()
