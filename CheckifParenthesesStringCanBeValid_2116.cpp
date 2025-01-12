@@ -145,3 +145,57 @@ int main()
     std::cout << c1.canBeValid("))()()()((()))", "10000000000001") << std::endl; // true
     return 0;
 }
+/*
+bool canBeValid(std::string s, std::string locked) {
+        if (s.length() % 2 == 1) {
+            return false; // Odd-length strings cannot be valid
+        }
+
+        std::unordered_map<char, int> bracket_track;
+
+        int openBracket = 0, closeBracket = 0;
+
+        // First Pass: Left to Right
+        for (size_t i = 0; i < s.size(); ++i) {
+            if (locked[i] == '1') {
+                if (s[i] == '(') {
+                    openBracket++;
+                } else {
+                    closeBracket++;
+                }
+            } else {
+                bracket_track['?']++;
+            }
+
+            // Check if ')' exceeds available '(' + '?'
+            if (closeBracket > openBracket + bracket_track['?']) {
+                return false;
+            }
+        }
+
+        openBracket = 0;
+        closeBracket = 0;
+        bracket_track.clear(); // Reset for second pass
+
+        // Second Pass: Right to Left
+        for (int i = s.size() - 1; i >= 0; --i) {
+            if (locked[i] == '1') {
+                if (s[i] == '(') {
+                    openBracket++;
+                } else {
+                    closeBracket++;
+                }
+            } else {
+                bracket_track['?']++;
+            }
+
+            // Check if '(' exceeds available ')' + '?'
+            if (openBracket > closeBracket + bracket_track['?']) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+ */
