@@ -54,7 +54,8 @@ public:
         int n = derived.size();
 
         // Helper function to verify a reconstruction
-        auto canReconstruct = [&](int start) -> bool {
+        auto canReconstruct = [&](int start) -> bool
+        {
             std::vector<int> original(n);
             original[0] = start;
 
@@ -82,3 +83,15 @@ int main()
     std::cout << std::boolalpha << n1.doesValidArrayExist(derived) << std::endl; // Output result
     return 0;
 }
+
+/*
+bool doesValidArrayExist(vector<int>& derived) {
+        int n = derived.size();
+        int ans = 0;
+        for(int i = 0; i < n; i++){
+            ans ^= derived[i];
+        }
+        if(ans == 0)return true;
+        return false;
+    }
+*/
