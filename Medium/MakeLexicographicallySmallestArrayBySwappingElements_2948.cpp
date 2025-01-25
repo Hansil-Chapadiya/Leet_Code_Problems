@@ -62,7 +62,9 @@ int main()
     m1.lexicographicallySmallestArray(nums, 2);
     return 0;
 }*/
-#include <iostream>
+
+
+/* #include <iostream>
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -104,5 +106,81 @@ int main()
     std::vector<int> nums = {1, 60, 34, 84, 62, 56, 39, 76, 49, 38};
     MakeLexicographicallySmallestArrayBySwappingElements_2948 m1;
     m1.lexicographicallySmallestArray(nums, 4);
+    return 0;
+}
+ */
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+class MakeLexicographicallySmallestArrayBySwappingElements_2948
+{
+public:
+    std::vector<int> lexicographicallySmallestArray(std::vector<int> &nums, int limit)
+    {
+        std::vector<std::pair<int, int>> valueIndexPairs;
+        int size = nums.size();
+
+        // Step 1: Create pairs of (value, index)
+        for (int i = 0; i < size; ++i)
+        {
+            valueIndexPairs.push_back({nums[i], i});
+        }
+
+        // Step 2: Sort pairs based on values
+        std::sort(valueIndexPairs.begin(), valueIndexPairs.end());
+
+        // Step 3: Group adjacent pairs based on the threshold
+        std::vector<std::vector<std::pair<int, int>>> groupedPairs;
+        groupedPairs.push_back({valueIndexPairs[0]});
+
+        for (int i = 1; i < size; ++i)
+        {
+            if (valueIndexPairs[i].first - valueIndexPairs[i - 1].first <= limit)
+            {
+                groupedPairs.back().push_back(valueIndexPairs[i]);
+            }
+            else
+            {
+                groupedPairs.push_back({valueIndexPairs[i]});
+            }
+        }
+
+        // Step 4: Process each group to sort indices and reassign values
+        for (const auto &group : groupedPairs)
+        {
+            std::vector<int> indices;
+            for (const auto &[value, index] : group)
+            {
+                indices.push_back(index);
+            }
+
+            // Sort indices in ascending order
+            std::sort(indices.begin(), indices.end());
+
+            // Assign sorted values back to nums at the sorted indices
+            for (size_t i = 0; i < indices.size(); ++i)
+            {
+                nums[indices[i]] = group[i].first;
+            }
+        }
+
+        return nums;
+    }
+};
+
+int main()
+{
+    std::vector<int> nums = {1, 60, 34, 84, 62, 56, 39, 76, 49, 38};
+    int limit = 4;
+
+    MakeLexicographicallySmallestArrayBySwappingElements_2948 solver;
+    std::vector<int> result = solver.lexicographicallySmallestArray(nums, limit);
+
+    for (int num : result)
+    {
+        std::cout << num << " ";
+    }
     return 0;
 }
