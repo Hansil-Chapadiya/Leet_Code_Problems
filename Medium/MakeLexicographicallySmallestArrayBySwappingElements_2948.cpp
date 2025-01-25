@@ -1,4 +1,4 @@
-#include <iostream>
+/* #include <iostream>
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -61,6 +61,48 @@ int main()
     MakeLexicographicallySmallestArrayBySwappingElements_2948 m1;
     m1.lexicographicallySmallestArray(nums, 2);
     return 0;
+}*/
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+
+class MakeLexicographicallySmallestArrayBySwappingElements_2948
+{
+public:
+    std::vector<int> lexicographicallySmallestArray(std::vector<int> &nums, int limit)
+    {
+        bool swapped;
+        do
+        {
+            swapped = false;
+            for (int i = 0; i < nums.size(); i++)
+            {
+                for (int j = i + 1; j < nums.size(); j++)
+                {
+                    // Check if a swap is beneficial and within the limit
+                    if (nums[i] > nums[j] && std::abs(nums[i] - nums[j]) <= limit)
+                    {
+                        std::swap(nums[i], nums[j]);
+                        swapped = true; // Mark that a swap occurred
+                    }
+                }
+            }
+        } while (swapped); // Repeat until no swaps are made
+
+        // Print the result
+        for (int i = 0; i < nums.size(); i++)
+        {
+            std::cout << nums[i] << " ";
+        }
+        return nums;
+    }
+};
+
+int main()
+{
+    std::vector<int> nums = {1, 60, 34, 84, 62, 56, 39, 76, 49, 38};
+    MakeLexicographicallySmallestArrayBySwappingElements_2948 m1;
+    m1.lexicographicallySmallestArray(nums, 4);
+    return 0;
 }
-
-
