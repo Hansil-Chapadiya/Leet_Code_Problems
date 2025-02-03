@@ -34,16 +34,13 @@ public:
         std::stack<std::vector<int>> stk;
         for (int i = 0; i < nums.size(); i++)
         {
+            std::vector<int> temp;
             for (int j = i; j < nums.size(); j++)
             {
-                std::vector<int> temp;
-                for (int k = i; k <= j; k++)
-                {
-                    temp.push_back(nums[k]);
-                }
+                temp.push_back(nums[j]);
                 stk.push(temp);
-                temp.clear();
             }
+            temp.clear();
         }
 
         int max_len = 0;
@@ -64,7 +61,7 @@ int main()
     LongestStrictlyIncreasingStrictlyDecreasingSubarray_3105 l1;
     // std::vector<int> nums = {1, 4, 3, 3, 2};
     // std::vector<int> nums = {3,3,3,3};
-    std::vector<int> nums = {3,2,1};
+    std::vector<int> nums = {3, 2, 1};
     std::cout << l1.longestMonotonicSubarray(nums);
     return 0;
 }
