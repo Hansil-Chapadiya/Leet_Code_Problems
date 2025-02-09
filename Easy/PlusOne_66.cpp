@@ -96,55 +96,76 @@
 #include <vector>
 #include <string>
 
-std::vector<int> plusOne(std::vector<int> &digits) {
-    std::vector<int> answer;
-    std::string digit;
+// std::vector<int> plusOne(std::vector<int> &digits) {
+//     std::vector<int> answer;
+//     std::string digit;
 
-    // Convert vector to string
-    for (int i = 0; i < digits.size(); i++) {
-        digit += (digits[i] + '0');
-    }
+//     // Convert vector to string
+//     for (int i = 0; i < digits.size(); i++) {
+//         digit += (digits[i] + '0');
+//     }
 
-    // Get last character safely
-    char ch = digit.back();
+//     // Get last character safely
+//     char ch = digit.back();
 
-    if (ch == '9') {
-        int n = digit.size() - 1;
-        int size_of_digit = digit.size();
-        int cnt = 0;
+//     if (ch == '9') {
+//         int n = digit.size() - 1;
+//         int size_of_digit = digit.size();
+//         int cnt = 0;
 
-        // Find the position of the last non-'9' digit
-        while (n >= 0 && digit[n] == '9') {
-            n--;
-            cnt++;
+//         // Find the position of the last non-'9' digit
+//         while (n >= 0 && digit[n] == '9') {
+//             n--;
+//             cnt++;
+//         }
+
+//         if (n == -1) {  // All digits are '9' (e.g., "999")
+//             digit = "1";  // Set first digit to '1'
+//             while (cnt--) digit.push_back('0');  // Append zeros
+//         } else {  // Case like "12899" → "12900"
+//             digit[n] = (digit[n] - '0' + 1) + '0';  // Increment non-'9' digit
+//             n++;
+//             while (cnt--) digit[n++] = '0';  // Set remaining to '0'
+//         }
+//     } else {  // Normal case: Just increment the last digit
+//         digit.back() = (ch - '0' + 1) + '0';
+//     }
+
+//     // Convert back to vector<int>
+//     for (char c : digit) {
+//         answer.push_back(c - '0');
+//     }
+
+//     return answer;
+// }
+
+// int main() {
+//     std::vector<int> digits = {9, 9, 9};  // Example input
+//     std::vector<int> result = plusOne(digits);
+
+//     for (int num : result) {
+//         std::cout << num << " ";
+//     }
+//     return 0;
+// }
+
+
+class Solution {
+    public:
+        std::vector<int> plusOne(std::vector<int>& digits) {
+            int n = digits.size();
+
+            // Traverse from the last digit
+            for (int i = n - 1; i >= 0; i--) {
+                if (digits[i] < 9) {
+                    digits[i]++; // Simply increment if it's not 9
+                    return digits; // Return early
+                }
+                digits[i] = 0; // If 9, set to 0 and continue
+            }
+
+            // If all digits were 9, we need an extra 1 at the beginning
+            digits.insert(digits.begin(), 1);
+            return digits;
         }
-
-        if (n == -1) {  // All digits are '9' (e.g., "999")
-            digit = "1";  // Set first digit to '1'
-            while (cnt--) digit.push_back('0');  // Append zeros
-        } else {  // Case like "12899" → "12900"
-            digit[n] = (digit[n] - '0' + 1) + '0';  // Increment non-'9' digit
-            n++;
-            while (cnt--) digit[n++] = '0';  // Set remaining to '0'
-        }
-    } else {  // Normal case: Just increment the last digit
-        digit.back() = (ch - '0' + 1) + '0';
-    }
-
-    // Convert back to vector<int>
-    for (char c : digit) {
-        answer.push_back(c - '0');
-    }
-
-    return answer;
-}
-
-int main() {
-    std::vector<int> digits = {9, 9, 9};  // Example input
-    std::vector<int> result = plusOne(digits);
-
-    for (int num : result) {
-        std::cout << num << " ";
-    }
-    return 0;
-}
+    };
