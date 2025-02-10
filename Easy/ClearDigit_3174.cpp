@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-class ClearDigit_3174
+/* class ClearDigit_3174
 {
 public:
     std::string clearDigits(const std::string &s)
@@ -56,46 +56,59 @@ int main()
 
     return 0;
 }
+ */
+#include <iostream>
+#include <stack>
+#include <string>
 
-/*  int count_char = 0;
-for (char c : s)
+class ClearDigit_3174
 {
-if (!std::isdigit(c))
-{
-count_char++;
-}
+public:
+    std::string clearDigits(const std::string &s)
+    {
+        std::stack<char> stk;  // Stack to process characters
+        std::stack<char> temp; // Temp stack for backtracking
 
-stk.push(c);
-marked.push_back({c, false});
-}
+        for (char c : s)
+        {
+            if (std::isdigit(c))
+            {
+                if (!stk.empty() && std::isalpha(stk.top()))
+                {
+                    stk.pop(); // Remove the last letter before digit
+                }
+            }
+            else
+            {
+                stk.push(c); // Push letters normally
+            }
+        }
 
-if (count_char == s.length())
-{
-return s;
-}
+        // Reconstruct the final string from the stack
+        std::string result;
+        while (!stk.empty())
+        {
+            temp.push(stk.top());
+            stk.pop();
+        }
 
-std::stack<char> temp; // 4
-while (!stk.empty())
-{
-char c = stk.top();
-stk.pop();
+        while (!temp.empty())
+        {
+            result.push_back(temp.top());
+            temp.pop();
+        }
 
-if (std::isdigit(c))
+        return result;
+    }
+};
+
+int main()
 {
-char temp_top = stk.top();
-while (!stk.empty() && std::isdigit(temp_top))
-{
-    stk.pop();
-    temp.push(temp_top);
+    ClearDigit_3174 c1;
+    std::cout << c1.clearDigits("cb34") << std::endl;    // Expected: ""
+    std::cout << c1.clearDigits("a1b2c3") << std::endl;  // Expected: ""
+    std::cout << c1.clearDigits("abc") << std::endl;     // Expected: "abc"
+    std::cout << c1.clearDigits("a1bcd23") << std::endl; // Expected: "d"
+
+    return 0;
 }
-marked[temp_top].second = true;
-}
-}
-std::string answer;
-for (auto i : s)
-{
-if (!std::isdigit(i) && marked[i].second == false)
-{
-answer.push_back(i);
-}
-} */
