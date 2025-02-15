@@ -1,12 +1,59 @@
 #include <iostream>
 #include <vector>
+#include <string>
+using namespace std;
+
 class FindthePunishmentNumberofanInteger_2698
 {
 private:
+    // Function to check if a square can be split into parts that sum to `num`
+    bool canBePartitioned(string s, int num, int sum = 0, int index = 0)
+    {
+        if (index == s.length())
+        {
+            return sum == num; // If sum equals num at the end, return true
+        }
+
+        int currentSum = 0;
+        for (int i = index; i < s.length(); i++)
+        {
+            currentSum = currentSum * 10 + (s[i] - '0'); // Convert substring to number
+            if (canBePartitioned(s, num, sum + currentSum, i + 1))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 public:
     int punishmentNumber(int n)
     {
-        if (n < 9)
+        int totalSum = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            int squared = i * i;
+            string squaredStr = to_string(squared);
+
+            // Check if the squared number can be partitioned
+            if (canBePartitioned(squaredStr, i))
+            {
+                totalSum += squared;
+            }
+        }
+        return totalSum;
+    }
+};
+
+int main()
+{
+    FindthePunishmentNumberofanInteger_2698 f1;
+    cout << f1.punishmentNumber(10) << endl; // Example test case
+    return 0;
+}
+/*
+if (n < 9)
             return 1;
         if (n == 9)
             return 82;
@@ -63,11 +110,4 @@ public:
         if (n < 1000)
             return 9804657;
         return 10804657;
-    }
-};
-int main()
-{
-    FindthePunishmentNumberofanInteger_2698 f1;
-    std::cout << f1.punishmentNumber(8);
-    return 0;
-}
+*/
