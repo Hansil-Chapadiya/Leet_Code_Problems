@@ -17,41 +17,44 @@ class MergeTwoSortedList_21
 public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
     {
-        std::vector<int> v;
-
-        // Collect values from list1
-        ListNode *temp = list1;
-        while (temp != nullptr)
-        { // Now correctly handles 1-element lists
-            v.push_back(temp->val);
-            temp = temp->next;
-        }
-
-        // Collect values from list2
-        temp = list2;
-        while (temp != nullptr)
-        { // Now correctly handles 1-element lists
-            v.push_back(temp->val);
-            temp = temp->next;
-        }
-
-        // Sort the collected values
-        std::sort(v.begin(), v.end());
-
-        // Handle empty case
-        if (v.empty())
-            return nullptr;
-
-        // Create new linked list from sorted values
-        ListNode *result = new ListNode(v[0]);
-        temp = result;
-        for (size_t i = 1; i < v.size(); i++)
+        if (!list1)
         {
-            temp->next = new ListNode(v[i]);
-            temp = temp->next;
+            return list2;
+        }
+        if (!list2)
+        {
+            return list1;
         }
 
-        return result;
+        ListNode *dummy = new ListNode(-1);
+        ListNode *node = dummy;
+        while (list1 && list2)
+        {
+            if (list1->val < list2->val)
+            {
+                node->next = list1;
+                list1 = list1->next;
+            }
+            else
+            {
+                node->next = list2;
+                list2 = list2->next;
+            }
+            node = node->next;
+        }
+
+        if (list1)
+        {
+            node->next = list1;
+        }
+        if (list2)
+        {
+            node->next = list2;
+        }
+
+        ListNode *mergedHead = dummy->next;
+        delete dummy;
+        return mergedHead;
     }
 };
 
@@ -88,3 +91,42 @@ int main()
 
     return 0;
 }
+
+/*
+
+ std::vector<int> v;
+
+        // Collect values from list1
+        ListNode *temp = list1;
+        while (temp != nullptr)
+        { // Now correctly handles 1-element lists
+            v.push_back(temp->val);
+            temp = temp->next;
+        }
+
+        // Collect values from list2
+        temp = list2;
+        while (temp != nullptr)
+        { // Now correctly handles 1-element lists
+            v.push_back(temp->val);
+            temp = temp->next;
+        }
+
+        // Sort the collected values
+        std::sort(v.begin(), v.end());
+
+        // Handle empty case
+        if (v.empty())
+            return nullptr;
+
+        // Create new linked list from sorted values
+        ListNode *result = new ListNode(v[0]);
+        temp = result;
+        for (size_t i = 1; i < v.size(); i++)
+        {
+            temp->next = new ListNode(v[i]);
+            temp = temp->next;
+        }
+
+        return result;
+*/
