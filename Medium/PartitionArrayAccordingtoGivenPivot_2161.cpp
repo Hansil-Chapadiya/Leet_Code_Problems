@@ -5,7 +5,7 @@ class PartitionArrayAccordingtoGivenPivot
 public:
     std::vector<int> pivotArray(std::vector<int> &nums, int pivot)
     {
-        std::vector<int> leftArray;
+        /* std::vector<int> leftArray;
         std::vector<int> rightArray;
         std::vector<int> pivotArray;
         for (int i = 0; i < nums.size(); i++)
@@ -30,6 +30,31 @@ public:
         for (int i = 0; i < rightArray.size(); i++)
         {
             result.push_back(rightArray[i]);
+        }
+        return result; */
+        int leftCount = 0;
+        int pivotCount = 0;
+        std::vector<int> result(nums.size());
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums[i] < pivot)
+                leftCount++;
+            else if (nums[i] == pivot)
+                pivotCount++;
+        }
+
+        int leftIndex = 0;
+        int pivotIndex = leftCount;
+        int rightIndex = leftCount + pivotCount;
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums[i] < pivot)
+                result[leftIndex++] = nums[i];
+            else if (nums[i] == pivot)
+                result[pivotIndex++] = nums[i];
+            else
+                result[rightIndex++] = nums[i];
         }
         return result;
     }
