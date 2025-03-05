@@ -5,7 +5,7 @@ class CountTotalNumberofColoredCells_2579
 public:
     long long coloredCells(int n)
     {
-        if (n == 1)
+        /* if (n == 1)
             return 1;
         long long ans = 1;
         int count = 1;
@@ -14,7 +14,9 @@ public:
             ans += (count * 4);
             count++;
         }
-        return ans;
+        return ans; */
+        long long t = n;
+        long long total = (t * t) + ((t - 1) * (t - 1)); return total;
     }
 };
 int main()
