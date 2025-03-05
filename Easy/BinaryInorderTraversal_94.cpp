@@ -20,7 +20,7 @@ private:
             return;
         inOrder(root->left);
         result.push_back(root->val);
-        inorderTraversal(root->right);
+        inOrder(root->right);
     }
 
 public:
