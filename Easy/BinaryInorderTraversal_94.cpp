@@ -12,10 +12,22 @@ public:
 };
 class BinaryInorderTraversal_94
 {
+private:
+    std::vector<int> result;
+    void inOrder(TreeNode *root)
+    {
+        if (root == nullptr)
+            return;
+        inOrder(root->left);
+        result.push_back(root->val);
+        inorderTraversal(root->right);
+    }
+
 public:
     std::vector<int> inorderTraversal(TreeNode *root)
     {
-        return {};
+        inOrder(root);
+        return result;
     }
 };
 int main()
@@ -25,6 +37,10 @@ int main()
     root->right = new TreeNode(2);
     root->right->left = new TreeNode(3);
     BinaryInorderTraversal_94 b1;
-    b1.inorderTraversal(root);
+    std::vector<int> answer = b1.inorderTraversal(root);
+    for (int i : answer)
+    {
+        std::cout << i << " ";
+    }
     return 0;
 }
