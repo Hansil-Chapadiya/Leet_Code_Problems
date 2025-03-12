@@ -42,3 +42,18 @@ obj = MaximumCountPositiveIntegerAndNegativeInteger_2529()
 print(obj.maximumCount([-2, -1, -1, 1, 2, 3]))  # Output: 3
 print(obj.maximumCount([-3, -2, -1, 0, 0, 1, 2]))  # Output: 3
 print(obj.maximumCount([5, 20, 66, 1314]))  # Output: 4
+
+
+"""
+from bisect import bisect_left  # 先載入函式庫
+
+class Solution:
+    def maximumCount(self, nums: List[int]) -> int:
+        first_non_negative = bisect_left(nums, 0)
+        first_positive = bisect_left(nums, 1)
+
+        neg = first_non_negative
+        pos = len(nums) - first_positive
+
+        return max(neg,pos)
+"""
