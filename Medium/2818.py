@@ -102,5 +102,5 @@ class MaximizeScoreUsingOperations_2818:
 
 
 # Example usage:
-obj = MaximizeScoreUsingOperations()
+obj = MaximizeScoreUsingOperations_2818()
 print(obj.maximumScore([8,3,9,3,8], 2))
