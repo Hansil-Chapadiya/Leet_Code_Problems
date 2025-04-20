@@ -1,4 +1,4 @@
-#include <iostream>
+/* #include <iostream>
 #include <vector>
 #include <algorithm>
 
@@ -28,6 +28,46 @@ int main()
 
     ContainDuplicate_217 c1;
     std::cout << c1.containsDuplicate(nums);
+
+    return 0;
+} */
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+
+class ContainDuplicate_217
+{
+  public:
+    bool containsDuplicate(std::vector<int>& nums)
+    {
+        std::unordered_map<int,int> uMap;
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            uMap[nums[i]]++;
+
+            if(uMap[nums[i]] >= 2)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+};
+
+
+int main()
+{
+    // std::vector<int> nums = {1,2,3,1};
+    std::vector<int> nums = {1,2,3,4};
+
+    ContainDuplicate_217 c1;
+    std::cout<<c1.containsDuplicate(nums);
 
     return 0;
 }
