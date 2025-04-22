@@ -38,7 +38,7 @@
         return 0;
     }(); */
 
-class Solution {
+/* class Solution {
     public:
         int majorityElement(std::vector<int>& nums) {
 
@@ -70,6 +70,34 @@ class Solution {
     };
     static const int hansil = []()
     {
+        std::ios::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+        std::cout.tie(nullptr);
+        return 0;
+    }(); */
+
+
+class Solution {
+    public:
+        int majorityElement(std::vector<int>& nums) {
+
+            int count = 0;
+            int candidate = 0;
+
+            for (int num : nums) {
+                if (count == 0)
+                    candidate = num;
+
+                if (candidate == num) {
+                    count++;
+                } else {
+                    count--;
+                }
+            }
+            return candidate;
+        }
+    };
+    static const int hansil = []() {
         std::ios::sync_with_stdio(false);
         std::cin.tie(nullptr);
         std::cout.tie(nullptr);
