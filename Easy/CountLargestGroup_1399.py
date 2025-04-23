@@ -1,5 +1,5 @@
 class CountLargestGroup_1399:
-    def sumOfDigit(sef, n : int) -> int:
+    def sumOfDigit(self, n : int) -> int:
         rem = 0
         sum_ = 0
 
@@ -34,3 +34,22 @@ class CountLargestGroup_1399:
 
 obj = CountLargestGroup_1399()
 print(obj.countLargestGroup(13))
+
+
+"""def sumOfDigit(self, n: int) -> int:
+        total = 0
+        while n > 0:
+            total += n % 10
+            n //= 10
+        return total
+
+    def countLargestGroup(self, n: int) -> int:
+        groups = {}
+        for i in range(1, n + 1):
+            sod = self.sumOfDigit(i)
+            groups[sod] = groups.get(sod, 0) + 1
+
+        max_size = max(groups.values())
+        # count how many sums have this max frequency
+        return sum(1 for freq in groups.values() if freq == max_size)
+"""
