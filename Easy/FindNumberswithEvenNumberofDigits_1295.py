@@ -20,7 +20,7 @@ class FindNumberswithEvenNumberofDigits_1295:
         cnt = 0
         while n > 0:
             cnt += 1
-            n /= 10
+            n //= 10
         return cnt
 
     def findNumbers(self, nums: List[int]) -> int:
