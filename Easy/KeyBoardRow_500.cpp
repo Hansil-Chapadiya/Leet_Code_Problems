@@ -69,7 +69,7 @@ static const int hansil = []()
     std::cout.tie(nullptr);
     return 0;
 }(); */
-
+/*
 
 #include <iostream>
 #include <vector>
@@ -152,4 +152,42 @@ int main()
     }
 
     return 0;
-}
+} */
+
+class Solution {
+    bool isSubset(const std::string& word,
+                  const std::unordered_set<char>& rowSet) {
+        for (char c : word) {
+            if (rowSet.find(std::tolower(c)) == rowSet.end()) {
+                return false; // Found a character not in the row
+            }
+        }
+        return true;
+    }
+
+public:
+    std::vector<std::string> findWords(const std::vector<std::string>& words) {
+        std::unordered_set<char> row1 = {'q', 'w', 'e', 'r', 't',
+                                         'y', 'u', 'i', 'o', 'p'};
+        std::unordered_set<char> row2 = {'a', 's', 'd', 'f', 'g',
+                                         'h', 'j', 'k', 'l'};
+        std::unordered_set<char> row3 = {'z', 'x', 'c', 'v', 'b', 'n', 'm'};
+
+        std::vector<std::string> result;
+
+        for (const std::string& word : words) {
+            if (isSubset(word, row1) || isSubset(word, row2) ||
+                isSubset(word, row3)) {
+                result.push_back(word);
+            }
+        }
+
+        return result;
+    }
+};
+static const int hansil = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    return 0;
+}();
