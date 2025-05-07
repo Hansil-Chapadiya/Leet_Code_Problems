@@ -6,7 +6,7 @@ class Permutations_46:
 
         n = len(nums)
 
-        perms = list(itertools.permutations(nums,n))
+        perms = [list(perm) for perm in itertools.permutations(nums, n)]
 
         return perms
 
