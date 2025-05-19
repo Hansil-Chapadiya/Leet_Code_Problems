@@ -19,3 +19,28 @@ int main()
     // std::cout<<f1.findTheDifference("a","aa");
     return 0;
 }
+
+
+
+/*
+
+char findTheDifference(std::string s, std::string t) {
+        std::unordered_map<char, int> uMap;
+
+        // Count characters in s
+        for (char c : s) {
+            uMap[c]++;
+        }
+
+        // Traverse t and find the odd one out
+        for (char c : t) {
+            uMap[c]--;
+            if (uMap[c] < 0) {
+                return c; // This char wasn't in s or appeared more in t
+            }
+        }
+
+        return ' '; // Should never reach here if input is valid
+    }
+
+*/
