@@ -1,4 +1,4 @@
-from typing import List
+""" from typing import List
 
 class stockBuyAndSell:
     def buyAndSell(self, nums: List[int]) -> int:
@@ -12,4 +12,20 @@ class stockBuyAndSell:
 
 obj = stockBuyAndSell()
 # print(obj.buyAndSell([7,1,5,3,6,4]))
-print(obj.buyAndSell([7,6,4,3,1]))
+print(obj.buyAndSell([7,6,4,3,1])) """
+
+from typing import List
+
+class stockBuyAndSell:
+    def buyAndSell(self, nums: List[int]) -> int:
+        maxProfit = 0
+        minPrice = float('inf')
+
+        for price in range(0,len(nums)):
+            minPrice = min(minPrice, nums[price])
+            maxProfit = max(maxProfit, nums[price] - minPrice)
+        return int(maxProfit)
+
+obj = stockBuyAndSell()
+print(obj.buyAndSell([7,1,5,3,6,4]))
+# print(obj.buyAndSell([7,6,4,3,1]))
