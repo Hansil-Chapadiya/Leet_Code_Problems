@@ -34,7 +34,7 @@ obj = FindDuplicate()
 # print(obj.getDuplicateElement([1,3,4,2,2]))
 print(obj.getDuplicateElement([3,1,3,4,2])) """
 
-from typing import List
+""" from typing import List
 from collections import Counter
 
 class FindDuplicate:
@@ -52,6 +52,23 @@ class FindDuplicate:
                 low = mid + 1
 
         return low
+
+
+obj = FindDuplicate()
+print(obj.getDuplicateElement([1,3,4,2,2]))
+# print(obj.getDuplicateElement([3,1,3,4,2])) #1,2,3,3,4 """
+
+from typing import List
+from collections import Counter
+
+class FindDuplicate:
+    def getDuplicateElement(self, nums: List[int]) -> int:
+
+        n = len(nums)
+        sumofn = (n * (n - 1)) // 2
+        sumofArray = sum(nums)
+
+        return sumofArray - sumofn
 
 
 obj = FindDuplicate()
