@@ -2,7 +2,7 @@ from typing import List
 
 
 class RepeatingAndMissingNumber:
-    def repeatAndMiss(self, nums: List[int]) -> int:
+    def repeatAndMiss(self, nums: List[int]) -> List[int]:
         n = len(nums)
 
         total_sum = (n * (n + 1)) // 2
